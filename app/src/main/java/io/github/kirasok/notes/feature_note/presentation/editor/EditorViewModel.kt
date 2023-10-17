@@ -41,8 +41,14 @@ class EditorViewModel @Inject constructor(
         viewModelScope.launch {
           noteUseCases.getNote(noteId)?.also { note ->
             currentNoteId = note.id
-            _noteTitle.value = noteTitle.value.copy(text = note.title)
-            _noteContent.value = noteContent.value.copy(text = note.content)
+            _noteTitle.value = noteTitle.value.copy(
+              text = note.title,
+              isHintVisible = note.title.isBlank()
+            )
+            _noteContent.value = noteContent.value.copy(
+              text = note.content,
+              isHintVisible = note.content.isBlank()
+            )
             _noteColor.value = note.color
           }
         }
